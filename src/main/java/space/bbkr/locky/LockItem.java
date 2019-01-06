@@ -32,7 +32,8 @@ public class LockItem extends Item {
 					player.getStackInHand(player.getActiveHand()).subtractAmount(1);
 					ctx.getWorld().playSound(null, ctx.getPos().getX(), ctx.getPos().getY(), ctx.getPos().getZ(), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundCategory.BLOCK, 0.5F, ctx.getWorld().random.nextFloat() * 0.1F + 0.9F);
 				} else {
-					player.addChatMessage(new TranslatableTextComponent("msg.locky.cantlock"), true);
+					if (!lock.hasDisplayName()) player.addChatMessage(new TranslatableTextComponent("msg.locky.cantlock.noname"), true);
+					else player.addChatMessage(new TranslatableTextComponent("msg.locky.cantlock.alreadylocked"), true);
 					ctx.getWorld().playSound(null, ctx.getPos().getX(), ctx.getPos().getY(), ctx.getPos().getZ(), SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCK, 0.5F, ctx.getWorld().random.nextFloat() * 0.1F + 0.9F);
 				}
 				be.fromTag(tag);

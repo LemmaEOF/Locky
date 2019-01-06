@@ -2,7 +2,8 @@
   "item.locky.lock": "Lock",
   "item.locky.lockpick": "Lock pick",
   "msg.locky.locked": "Block locked to keys named \"%s\".",
-  "msg.locky.cantlock": "Block is already locked, or lock doesn't have a name set!",
+  "msg.locky.cantlock.noname": "Lock doesn't have a name set!",
+  "msg.locky.cantlock.alreadylocked": "Block is already locked!",
   "msg.locky.unlocked": "Block unlocked!",
   "msg.locky.cantunlock": "Block is locked with a different key name!"
 }
