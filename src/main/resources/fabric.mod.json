@@ -1,0 +1,7 @@
+{
+  "id": "locky",
+  "name": "Locky",
+  "version": "1.0.0",
+  "side": "universal",
+  "initializer": "space.bbkr.locky.Locky"
+}
