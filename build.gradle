@@ -23,7 +23,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "locky"
-version = "18w50a-1.0.1"
+version = "18w50a-1.0.2"
 
 minecraft {
 	refmapName = 'mixins.gluon.refmap.json'
