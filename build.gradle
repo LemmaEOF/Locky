@@ -23,17 +23,17 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "locky"
-version = "18w50a-1.0.2"
+version = "1.0.2+19w08a"
 
 minecraft {
-	refmapName = 'mixins.gluon.refmap.json'
+	refmapName = 'mixins.locky.refmap.json'
 }
 
 
 dependencies {
-	minecraft "com.mojang:minecraft:18w50a"
-	mappings "net.fabricmc:yarn:18w50a.68"
-	modCompile "net.fabricmc:fabric-loader:0.3.0.74"
-	modCompile "net.fabricmc:fabric:0.1.2.63"
+	minecraft "com.mojang:minecraft:19w08a"
+	mappings "net.fabricmc:yarn:19w08a.4"
+	modCompile "net.fabricmc:fabric-loader:0.3.7.108"
+	modCompile "net.fabricmc:fabric:0.2.2.103"
 	implementation 'org.jetbrains:annotations:15.0'
 }
