@@ -23,17 +23,28 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "locky"
-version = "1.0.2+19w08a"
+version = "1.1.0+19w08a"
 
 minecraft {
 	refmapName = 'mixins.locky.refmap.json'
 }
 
+repositories {
+	//mavenCentral()
+	//mavenLocal()
+	maven {
+		//cotton
+		url "http://server.bbkr.space:8081/artifactory/libs-snapshot"
+	}
+}
 
 dependencies {
 	minecraft "com.mojang:minecraft:19w08a"
 	mappings "net.fabricmc:yarn:19w08a.4"
 	modCompile "net.fabricmc:fabric-loader:0.3.7.108"
-	modCompile "net.fabricmc:fabric:0.2.2.103"
+	modCompile "net.fabricmc:fabric:0.2.3.104"
 	implementation 'org.jetbrains:annotations:15.0'
+
+	// Component system for adding locks to ECS-compatible blocks
+	modCompile "io.github.cottonmc:cotton-ecs:1.0.0+19w05a-SNAPSHOT"
 }

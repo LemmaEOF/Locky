@@ -1,5 +1,7 @@
 package space.bbkr.locky;
 
+import io.github.cottonmc.ecs.api.ComponentContainer;
+import io.github.cottonmc.ecs.api.SidedComponentContainer;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,6 +42,10 @@ public class LockItem extends Item {
 				}
 				be.fromTag(tag);
 				return ActionResult.SUCCESS;
+			} else if (be instanceof ComponentContainer) {
+				//check for lock
+			} else if (be instanceof SidedComponentContainer) {
+				//check for lock
 			}
 		}
 		return ActionResult.PASS;
