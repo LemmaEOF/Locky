@@ -1,6 +1,7 @@
 package space.bbkr.locky;
 
 import io.github.cottonmc.ecs.api.Component;
+import net.minecraft.container.ContainerLock;
 import net.minecraft.item.ItemStack;
 
 public interface LockComponent extends Component {
@@ -15,35 +16,36 @@ public interface LockComponent extends Component {
 	 * @param key The ItemStack used to try to unlock a container.
 	 * @return Whether the ItemStack will work to unlock.
 	 */
-	public boolean canUnlock(ItemStack key);
+	public default boolean canUnlock(ItemStack key) {
+		return key.getDisplayName().toString().equals(getLock().toString());
+	}
 
 	/**
-	 * The player-set name of the lock used to lock the block/side.
-	 * Can either be used for vanilla LockContainer-style locks,
-	 * or helping a player remember which lock was used to lock a container.
-	 * @return The name of the lock used.
+	 * @return The lock currently locking the block/side.
 	 */
-	public String getLockName();
+	public ContainerLock getLock();
 
 	/**
 	 * Lock a block/side.
-	 * @param lock The ItemStack used to set the lock, inclding the NBT used to specify unlock conditions.
+	 * @param lock The lock to put on the block/side.
 	 */
-	public void lock(ItemStack lock);
+	public void setLock(ContainerLock lock);
 
 	/**
-	 * Remove the lock, deleting its information instantly.
+	 * Remove the lock, setting the ContainerLock to NONE.
 	 * Should not drop a lock item; leave that to the unlocking tool.
 	 */
-	public void removeLock();
+	public default void removeLock() {
+		setLock(ContainerLock.NONE);
+	}
 
 	/**
 	 * @return Whether a player can open the block/side that's locked.
 	 */
-	public boolean canPlayerAlwaysUse();
+	public boolean ignorePlayer();
 
 	/**
 	 * @return Whether another block can interact with the block/side that's locked.
 	 */
-	public boolean canBlocksAlwaysInteract();
+	public boolean ignoreBlocks();
 }
