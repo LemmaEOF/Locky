@@ -38,14 +38,4 @@ public interface LockComponent extends Component {
 	public default void removeLock() {
 		setLock(ContainerLock.NONE);
 	}
-
-	/**
-	 * @return Whether a player can open the block/side that's locked.
-	 */
-	public boolean ignorePlayer();
-
-	/**
-	 * @return Whether another block can interact with the block/side that's locked.
-	 */
-	public boolean ignoreBlocks();
 }
