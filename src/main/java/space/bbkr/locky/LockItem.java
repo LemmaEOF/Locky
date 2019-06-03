@@ -1,7 +1,5 @@
 package space.bbkr.locky;
 
-import io.github.cottonmc.ecs.api.ComponentContainer;
-import io.github.cottonmc.ecs.api.SidedComponentContainer;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,9 +7,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.ActionResult;
 
 public class LockItem extends Item {
@@ -30,22 +28,18 @@ public class LockItem extends Item {
 				CompoundTag tag = be.toTag(new CompoundTag());
 				if (lock.hasDisplayName() && (!tag.containsKey("Lock") || tag.getString("Lock").equals(""))) {
 					tag.putString("Lock", lock.getDisplayName().getString());
-					player.addChatMessage(new TranslatableTextComponent("msg.locky.locked", lock.getDisplayName().getString()), true);
+					player.addChatMessage(new TranslatableComponent("msg.locky.locked", lock.getDisplayName().getString()), true);
 					if (!player.isCreative()) {
 						player.getStackInHand(player.getActiveHand()).subtractAmount(1);
 					}
-					ctx.getWorld().playSound(null, ctx.getBlockPos().getX(), ctx.getBlockPos().getY(), ctx.getBlockPos().getZ(), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundCategory.BLOCK, 0.5F, ctx.getWorld().random.nextFloat() * 0.1F + 0.9F);
+					ctx.getWorld().playSound(null, ctx.getBlockPos().getX(), ctx.getBlockPos().getY(), ctx.getBlockPos().getZ(), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundCategory.BLOCKS, 0.5F, ctx.getWorld().random.nextFloat() * 0.1F + 0.9F);
 				} else {
-					if (!lock.hasDisplayName()) player.addChatMessage(new TranslatableTextComponent("msg.locky.cantlock.noname"), true);
-					else player.addChatMessage(new TranslatableTextComponent("msg.locky.cantlock.alreadylocked"), true);
-					ctx.getWorld().playSound(null, ctx.getBlockPos().getX(), ctx.getBlockPos().getY(), ctx.getBlockPos().getZ(), SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCK, 0.5F, ctx.getWorld().random.nextFloat() * 0.1F + 0.9F);
+					if (!lock.hasDisplayName()) player.addChatMessage(new TranslatableComponent("msg.locky.cantlock.noname"), true);
+					else player.addChatMessage(new TranslatableComponent("msg.locky.cantlock.alreadylocked"), true);
+					ctx.getWorld().playSound(null, ctx.getBlockPos().getX(), ctx.getBlockPos().getY(), ctx.getBlockPos().getZ(), SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.5F, ctx.getWorld().random.nextFloat() * 0.1F + 0.9F);
 				}
 				be.fromTag(tag);
 				return ActionResult.SUCCESS;
-			} else if (be instanceof ComponentContainer) {
-				//check for lock
-			} else if (be instanceof SidedComponentContainer) {
-				//check for lock
 			}
 		}
 		return ActionResult.PASS;

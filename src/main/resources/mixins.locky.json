@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "space.bbkr.locky.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "mixins.locky.refmap.json",
+  "mixins": [
+    "MixinAbstractFurnaceBlock",
+    "MixinBarrelBlock",
+    "MixinBlock",
+    "MixinBrewingStandBlock",
+    "MixinChestBlock",
+    "MixinDispenserBlock",
+    "MixinGameRules",
+    "MixinHopperBlock",
+    "MixinLockableContainerBlockEntity"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

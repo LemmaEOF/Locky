@@ -1,12 +1,27 @@
 {
+  "schemaVersion": 1,
   "id": "locky",
+  "version": "$version",
+
   "name": "Locky",
-  "version": "1.1.0",
-  "side": "universal",
-  "initializers": [
-    "space.bbkr.locky.Locky"
+  "icon": "assets/locky/icon.png",
+  "description": "Accessible vanilla chest locking",
+  "licence": "LGPL v3",
+  "contact": {
+    "sources": "https://github.com/boundarybreaker/locky"
+  },
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "space.bbkr.locky.Locky"
+    ]
+  },
+  "mixins": [
+    "mixins.locky.json"
   ],
   "requires": {
+    "fabricloader": ">=0.4.0",
     "fabric": "*"
   }
 }

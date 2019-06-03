@@ -7,7 +7,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.1.0-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.2.3-SNAPSHOT"
 	}
 }
 
@@ -23,7 +23,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "locky"
-version = "1.1.0+19w08a"
+version = "1.2.0+1.14.2"
 
 minecraft {
 	refmapName = 'mixins.locky.refmap.json'
@@ -32,19 +32,15 @@ minecraft {
 repositories {
 	//mavenCentral()
 	//mavenLocal()
-	maven {
-		//cotton
-		url "http://server.bbkr.space:8081/artifactory/libs-snapshot"
-	}
+	maven { url "http://server.bbkr.space:8081/artifactory/libs-snapshot" }
+	maven { url "https://minecraft.curseforge.com/api/maven" }
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:19w08a"
-	mappings "net.fabricmc:yarn:19w08a.4"
-	modCompile "net.fabricmc:fabric-loader:0.3.7.108"
-	modCompile "net.fabricmc:fabric:0.2.3.104"
-	implementation 'org.jetbrains:annotations:15.0'
+	minecraft "com.mojang:minecraft:1.14.2"
+	mappings "net.fabricmc:yarn:1.14.2+build.1"
+	modCompile "net.fabricmc:fabric-loader:0.4.8+build.154"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.175"
 
-	// Component system for adding locks to ECS-compatible blocks
-	modCompile "io.github.cottonmc:cotton-ecs:1.0.0+19w05a-SNAPSHOT"
+	modCompile "metatips:metatips:1.1.4+1.14"
 }
