@@ -1,0 +1,9 @@
+{
+  "item.locky.lock": "锁",
+  "item.locky.lock_pick": "开锁器",
+  "msg.locky.locked": "方块已成功用名称为\"%s\"的钥匙锁定.",
+  "msg.locky.cantlock.noname": "锁没有设置名称!",
+  "msg.locky.cantlock.alreadylocked": "方块已经锁定!",
+  "msg.locky.unlocked": "方块已解锁!",
+  "msg.locky.cantunlock": "方块已被不同名称的钥匙锁定!"
+}
