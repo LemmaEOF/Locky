@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import space.bbkr.locky.api.Protectable;
+import space.bbkr.locky.Locky;
 
 import java.util.List;
 
@@ -33,10 +33,10 @@ public class MixinBlock {
 	@Inject(method = "onBreak", at = @At("HEAD"))
 	public void dropOnBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
 		BlockEntity be = world.getBlockEntity(pos);
-		if (Protectable.shouldProtect(world, state, be)) {
+		if (Locky.isProtected(world, be)) {
 			LockableContainerBlockEntity container = (LockableContainerBlockEntity) be;
 			CompoundTag tag = container.toTag(new CompoundTag());
-			if (tag.containsKey("Lock") && player.isCreative()) {
+			if (player.isCreative()) {
 				ItemStack stack = new ItemStack(((Block)(Object)this).asItem());
 				stack.setChildTag("BlockEntityTag", tag);
 				CompoundTag displayTag = new CompoundTag();
@@ -60,32 +60,31 @@ public class MixinBlock {
 									Identifier id, LootContext context, ServerWorld server, LootSupplier supplier) {
 		BlockEntity be = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
 		List<ItemStack> stacks =  supplier.getDrops(context);
-		if (Protectable.shouldProtect(builder.getWorld(), state, be)) {
+		if (be != null && Locky.isProtected(builder.getWorld(), be)) {
 			ItemStack extraStack = ItemStack.EMPTY;
 			for (ItemStack stack : stacks) {
-				if (be instanceof LockableContainerBlockEntity && stack.getItem() == ((Block)(Object)this).asItem()) {
+				if (stack.getItem() == ((Block)(Object)this).asItem()) {
 					LockableContainerBlockEntity container = (LockableContainerBlockEntity) be;
 					CompoundTag tag = container.toTag(new CompoundTag());
 					CompoundTag displayTag = new CompoundTag();
 					ListTag listTag_1 = new ListTag();
 					listTag_1.add(new StringTag("\"(Locked)\""));
 					displayTag.put("Lore", listTag_1);
-					if (tag.containsKey("Lock")) {
-						if (stack.getAmount() == 1) {
-							stack.setChildTag("BlockEntityTag", tag);
-							stack.setChildTag("display", displayTag);
-							if (container.hasCustomName()) stack.setDisplayName(container.getDisplayName());
-							break;
-						} else {
-							stack.subtractAmount(1);
-							ItemStack newStack = new ItemStack(((Block)(Object)this).asItem());
-							newStack.setChildTag("BlockEntityTag", tag);
-							stack.setChildTag("display", displayTag);
-							if (container.hasCustomName()) stack.setDisplayName(container.getDisplayName());
-							extraStack = newStack;
-							break;
-						}
+					if (stack.getAmount() == 1) {
+						stack.setChildTag("BlockEntityTag", tag);
+						stack.setChildTag("display", displayTag);
+						if (container.hasCustomName()) stack.setDisplayName(container.getDisplayName());
+						break;
+					} else {
+						stack.subtractAmount(1);
+						ItemStack newStack = new ItemStack(((Block)(Object)this).asItem());
+						newStack.setChildTag("BlockEntityTag", tag);
+						stack.setChildTag("display", displayTag);
+						if (container.hasCustomName()) stack.setDisplayName(container.getDisplayName());
+						extraStack = newStack;
+						break;
 					}
+
 				}
 			}
 			if (!extraStack.isEmpty()) stacks.add(extraStack);

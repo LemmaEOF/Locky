@@ -5,8 +5,8 @@
 
   "name": "Locky",
   "icon": "assets/locky/icon.png",
-  "description": "Accessible vanilla chest locking",
-  "licence": "LGPL v3",
+  "description": "Accessible vanilla container locking",
+  "licence": "MIT",
   "contact": {
     "sources": "https://github.com/boundarybreaker/locky"
   },

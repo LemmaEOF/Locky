@@ -2,10 +2,15 @@
 
 # Locky
 
-[>> Downloads <<](https://github.com/b0undarybreaker/Locky/releases)
+[>> Downloads <<](https://github.com/boundarybreaker/Locky/releases)
 
-*Lock things up!*
+*Accessible vanilla container locking*
 
 **This mod is open source and under a permissive license.** As such, it can be included in any modpack on any platform without prior permission. We appreciate hearing about people using our mods, but you do not need to ask to use them. See the [LICENSE file](LICENSE) for more details.
 
-Locky adds a lock to work with the Vanilla locking mechanic. Just rename it and shift-right-click it onto a chest, and it'll lock it. To open the locked chest, open it while holding an item with the same name as the lock you used to name it.
+Locky seeks to make the vanilla locking system usable for survival servers. To this end, it adds various features:
+- Locks can be used to lock containers. Name the lock in an anvil, then shift-right-click it onto a container to lock it.
+  - To open the container again, hold any item with the same name as the container's lock and right-click the container.
+  - If the gamerule `locky:creativeLockBypass` is true (true by default), then players in creative mode will be able to open any locked container without a key.
+- Lock picks can be used to remove container locks. Name the pick the same as the container's lock, then shift-right-click the container to remove the lock.
+- If the gamerule `locky:protectLockedBlocks` is true (true by default), then any locked containers will, when broken, drop shulker-box style instead of spilling their contents.

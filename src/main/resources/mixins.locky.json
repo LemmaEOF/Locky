@@ -4,14 +4,9 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.locky.refmap.json",
   "mixins": [
-    "MixinAbstractFurnaceBlock",
-    "MixinBarrelBlock",
     "MixinBlock",
-    "MixinBrewingStandBlock",
-    "MixinChestBlock",
-    "MixinDispenserBlock",
     "MixinGameRules",
-    "MixinHopperBlock",
+    "MixinItemScatterer",
     "MixinLockableContainerBlockEntity"
   ],
   "injectors": {

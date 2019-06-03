@@ -25,8 +25,8 @@ public class MixinGameRules {
 		GameRules.Key creativeRule = new GameRules.Key("true", GameRules.Type.BOOLEAN_VALUE);
 		getRules().put("locky:protectLockedBlocks", protectionRule.createValue());
 		KEYS.put("locky:protectLockedBlocks", protectionRule);
-		getRules().put("locky:shouldCreativeBypassLock", creativeRule.createValue());
-		KEYS.put("locky:shouldCreativeBypassLock", creativeRule);
+		getRules().put("locky:creativeLockBypass", creativeRule.createValue());
+		KEYS.put("locky:creativeLockBypass", creativeRule);
 	}
 
 	public TreeMap<String, GameRules.Value> getRules() {

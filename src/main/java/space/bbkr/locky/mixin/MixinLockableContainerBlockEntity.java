@@ -19,6 +19,6 @@ public abstract class MixinLockableContainerBlockEntity extends BlockEntity {
 
 	@Inject(method = "checkUnlocked(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/container/ContainerLock;Lnet/minecraft/network/chat/Component;)Z", at = @At("HEAD"), cancellable = true)
 	private static void checkCreativeBypass(PlayerEntity player, ContainerLock lock, Component key, CallbackInfoReturnable cir) {
-		if (player.isCreative() && player.getEntityWorld().getGameRules().getBoolean("locky:shouldCreativeBypassLock")) cir.setReturnValue(true);
+		if (player.isCreative() && player.getEntityWorld().getGameRules().getBoolean("locky:creativeLockBypass")) cir.setReturnValue(true);
 	}
 }
