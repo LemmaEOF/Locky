@@ -14,3 +14,6 @@ Locky seeks to make the vanilla locking system usable for survival servers. To t
   - If the gamerule `locky:creativeLockBypass` is true (true by default), then players in creative mode will be able to open any locked container without a key.
 - Lock picks can be used to remove container locks. Name the pick the same as the container's lock, then shift-right-click the container to remove the lock.
 - If the gamerule `locky:protectLockedBlocks` is true (true by default), then any locked containers will, when broken, drop shulker-box style instead of spilling their contents.
+- Name tags can be used to rename containers.
+
+Any mod that adds containers which extend `LockableContainerBlockEntity` or a subclass of it will have automatic support. In the future, locks will be compatible with a component system for component-based block entities to implement.
