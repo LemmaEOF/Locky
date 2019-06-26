@@ -15,6 +15,6 @@ public class MixinItemScatterer {
 
 	@Inject(method = "spawn(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V", at = @At("HEAD"), cancellable = true)
 	private static void cancelProtectedScattering(World world, double x, double y, double z, ItemStack stack, CallbackInfo ci) {
-		if (Locky.isProtected(world, world.getBlockEntity(new BlockPos(x, y, z))) && world.getGameRules().getBoolean("locky:protectLockedBlocks")) ci.cancel();
+		if (Locky.isProtected(world, world.getBlockEntity(new BlockPos(x, y, z))) && world.getGameRules().getBoolean(Locky.PROTECT_LOCKED_BLOCKS)) ci.cancel();
 	}
 }

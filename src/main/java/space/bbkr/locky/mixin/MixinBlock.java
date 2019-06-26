@@ -38,13 +38,13 @@ public class MixinBlock {
 			CompoundTag tag = container.toTag(new CompoundTag());
 			if (player.isCreative()) {
 				ItemStack stack = new ItemStack(((Block)(Object)this).asItem());
-				stack.setChildTag("BlockEntityTag", tag);
+				stack.putSubTag("BlockEntityTag", tag);
 				CompoundTag displayTag = new CompoundTag();
 				ListTag loreList = new ListTag();
 				loreList.add(new StringTag("\"(Locked)\""));
 				displayTag.put("Lore", loreList);
-				stack.setChildTag("display", displayTag);
-				if (container.hasCustomName()) stack.setDisplayName(container.getDisplayName());
+				stack.putSubTag("display", displayTag);
+				if (container.hasCustomName()) stack.setCustomName(container.getDisplayName());
 				ItemEntity item = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
 				item.setToDefaultPickupDelay();
 				world.spawnEntity(item);
@@ -70,17 +70,17 @@ public class MixinBlock {
 					ListTag listTag_1 = new ListTag();
 					listTag_1.add(new StringTag("\"(Locked)\""));
 					displayTag.put("Lore", listTag_1);
-					if (stack.getAmount() == 1) {
-						stack.setChildTag("BlockEntityTag", tag);
-						stack.setChildTag("display", displayTag);
-						if (container.hasCustomName()) stack.setDisplayName(container.getDisplayName());
+					if (stack.getCount() == 1) {
+						stack.putSubTag("BlockEntityTag", tag);
+						stack.putSubTag("display", displayTag);
+						if (container.hasCustomName()) stack.setCustomName(container.getDisplayName());
 						break;
 					} else {
-						stack.subtractAmount(1);
+						stack.decrement(1);
 						ItemStack newStack = new ItemStack(((Block)(Object)this).asItem());
-						newStack.setChildTag("BlockEntityTag", tag);
-						stack.setChildTag("display", displayTag);
-						if (container.hasCustomName()) stack.setDisplayName(container.getDisplayName());
+						newStack.putSubTag("BlockEntityTag", tag);
+						stack.putSubTag("display", displayTag);
+						if (container.hasCustomName()) stack.setCustomName(container.getDisplayName());
 						extraStack = newStack;
 						break;
 					}

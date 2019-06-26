@@ -1,35 +1,28 @@
 package space.bbkr.locky.mixin;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.GameRules;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import space.bbkr.locky.Locky;
 
-import java.util.TreeMap;
-
+import java.util.HashMap;
+import java.util.Map;
 
 @Mixin(GameRules.class)
-public class MixinGameRules {
-	@Shadow
-	@Final
-	public TreeMap<String, GameRules.Value> rules;
-
-	@Shadow @Final private static TreeMap<String, GameRules.Key> KEYS;
+public abstract class MixinGameRules {
+	@Shadow @Final @Mutable
+	private Map<GameRules.RuleKey<?>, GameRules.Rule<?>> rules;
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void addGameRule(CallbackInfo ci) {
-		GameRules.Key protectionRule = new GameRules.Key("true", GameRules.Type.BOOLEAN_VALUE);
-		GameRules.Key creativeRule = new GameRules.Key("true", GameRules.Type.BOOLEAN_VALUE);
-		getRules().put("locky:protectLockedBlocks", protectionRule.createValue());
-		KEYS.put("locky:protectLockedBlocks", protectionRule);
-		getRules().put("locky:creativeLockBypass", creativeRule.createValue());
-		KEYS.put("locky:creativeLockBypass", creativeRule);
-	}
-
-	public TreeMap<String, GameRules.Value> getRules() {
-		return rules;
+	private void injectCustomRules(CallbackInfo ci) {
+		Map<GameRules.RuleKey<?>, GameRules.Rule<?>> oldRules = new HashMap<>(rules);
+		oldRules.putAll(Locky.CUSTOM_RULES.entrySet().stream().collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, (entry) -> (entry.getValue()).newRule())));
+		rules = oldRules;
 	}
 }
