@@ -18,6 +18,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 import java.util.Map;
@@ -26,7 +27,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Locky implements ModInitializer {
-    public static final Map<GameRules.RuleKey<?>, GameRules.RuleType<?>> CUSTOM_RULES = Maps.newTreeMap(Comparator.comparing((key) -> key.getName()));
+    public static final Map<GameRules.RuleKey<?>, GameRules.RuleType<?>> CUSTOM_RULES = Maps.newTreeMap(Comparator.comparing(GameRules.RuleKey::getName));
 
     public static final Item LOCK = register("lock", new LockItem(new Item.Settings().group(ItemGroup.TOOLS)));
     public static final Item LOCK_PICK = register("lock_pick", new LockPickItem(new Item.Settings().group(ItemGroup.TOOLS).maxDamage(32)));
@@ -42,8 +43,8 @@ public class Locky implements ModInitializer {
     @SuppressWarnings("unchecked")
     public static <T extends GameRules.Rule<T>> GameRules.RuleKey<T> register(String name, GameRules.RuleType<T> type) {
         GameRules.RuleKey<T> key = new GameRules.RuleKey(name);
-        GameRules.RuleType<?> gameRules$RuleType_2 = CUSTOM_RULES.put(key, type);
-        if (gameRules$RuleType_2 != null) {
+        GameRules.RuleType<?> existingType = CUSTOM_RULES.put(key, type);
+        if (existingType != null) {
             throw new IllegalStateException("Duplicate game rule registration for " + name);
         } else {
             return key;
@@ -75,8 +76,9 @@ public class Locky implements ModInitializer {
 
     public static GameRules.RuleType<?> createRule(Supplier<ArgumentType<?>> argumentType, Function<GameRules.RuleType<?>, ?> factory, BiConsumer<MinecraftServer, ?> notifier) {
         try {
-            GameRules.RuleType.class.getDeclaredConstructor(Supplier.class, Function.class, BiConsumer.class).setAccessible(true);
-            return GameRules.RuleType.class.getDeclaredConstructor(Supplier.class, Function.class, BiConsumer.class).newInstance(argumentType, factory, notifier);
+            java.lang.reflect.Constructor<GameRules.RuleType> constructor = GameRules.RuleType.class.getDeclaredConstructor(Supplier.class, Function.class, BiConsumer.class);
+            constructor.setAccessible(true);
+            return constructor.newInstance(argumentType, factory, notifier);
         } catch (IllegalAccessException | InstantiationException | ClassCastException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }

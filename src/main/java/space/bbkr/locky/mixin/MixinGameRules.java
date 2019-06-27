@@ -19,9 +19,12 @@ public abstract class MixinGameRules {
 	@Shadow @Final @Mutable
 	private Map<GameRules.RuleKey<?>, GameRules.Rule<?>> rules;
 
+	@Shadow @Final private static Map<GameRules.RuleKey<?>, GameRules.RuleType<?>> RULES;
+
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void injectCustomRules(CallbackInfo ci) {
 		Map<GameRules.RuleKey<?>, GameRules.Rule<?>> oldRules = new HashMap<>(rules);
+		RULES.putAll(Locky.CUSTOM_RULES);
 		oldRules.putAll(Locky.CUSTOM_RULES.entrySet().stream().collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, (entry) -> (entry.getValue()).newRule())));
 		rules = oldRules;
 	}
