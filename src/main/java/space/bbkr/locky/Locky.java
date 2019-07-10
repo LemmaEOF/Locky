@@ -76,7 +76,7 @@ public class Locky implements ModInitializer {
 
     public static GameRules.RuleType<?> createRule(Supplier<ArgumentType<?>> argumentType, Function<GameRules.RuleType<?>, ?> factory, BiConsumer<MinecraftServer, ?> notifier) {
         try {
-            java.lang.reflect.Constructor<GameRules.RuleType> constructor = GameRules.RuleType.class.getDeclaredConstructor(Supplier.class, Function.class, BiConsumer.class);
+            Constructor<GameRules.RuleType> constructor = GameRules.RuleType.class.getDeclaredConstructor(Supplier.class, Function.class, BiConsumer.class);
             constructor.setAccessible(true);
             return constructor.newInstance(argumentType, factory, notifier);
         } catch (IllegalAccessException | InstantiationException | ClassCastException | NoSuchMethodException | InvocationTargetException e) {
