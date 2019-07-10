@@ -23,7 +23,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "locky"
-version = "1.2.0+1.14.3"
+version = "1.2.1+1.14.3"
 
 minecraft {
 	refmapName = 'mixins.locky.refmap.json'
@@ -43,4 +43,15 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.187"
 
 	modCompile "metatips:metatips:1.1.4+1.14"
+}
+
+processResources {
+	inputs.property "version", project.version
+	from(sourceSets.main.resources.srcDirs) {
+		include "fabric.mod.json"
+		expand version: project.version
+	}
+	from(sourceSets.main.resources.srcDirs) {
+		exclude "fabric.mod.json"
+	}
 }

@@ -1,6 +1,6 @@
 {
   "item.locky.lock": "Lock",
-  "item.locky.lock_pick": "Lock pick",
+  "item.locky.lock_pick": "Lock Pick",
   "msg.locky.locked": "Block locked to keys named \"%s\".",
   "msg.locky.cantlock.noname": "Lock doesn't have a name set!",
   "msg.locky.cantlock.alreadylocked": "Block is already locked!",
