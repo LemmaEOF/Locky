@@ -87,7 +87,7 @@ public class Locky implements ModInitializer {
 
     public static boolean isProtected(World world, BlockEntity be) {
         if (world.getGameRules().getBoolean(PROTECT_LOCKED_BLOCKS)) {
-            if (be instanceof LockableContainerBlockEntity) return be.toTag(new CompoundTag()).containsKey("Lock");
+            if (be instanceof LockableContainerBlockEntity) return be.toTag(new CompoundTag()).contains("Lock");
         }
         return false;
     }

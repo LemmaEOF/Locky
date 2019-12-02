@@ -26,7 +26,7 @@ public class LockItem extends Item {
 			BlockEntity be = ctx.getWorld().getBlockEntity(ctx.getBlockPos());
 			if (be instanceof LockableContainerBlockEntity) {
 				CompoundTag tag = be.toTag(new CompoundTag());
-				if (lock.hasCustomName() && (!tag.containsKey("Lock") || tag.getString("Lock").equals(""))) {
+				if (lock.hasCustomName() && (!tag.contains("Lock") || tag.getString("Lock").equals(""))) {
 					tag.putString("Lock", lock.getName().getString());
 					player.addChatMessage(new TranslatableText("msg.locky.locked", lock.getName().getString()), true);
 					if (!player.isCreative()) {
