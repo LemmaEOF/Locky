@@ -34,7 +34,7 @@ public class LockPickItem extends Item {
 			if (be instanceof LockableContainerBlockEntity) {
 				LockableContainerBlockEntity container = (LockableContainerBlockEntity) be;
 				CompoundTag tag = be.toTag(new CompoundTag());
-				if ((player.isCreative() || pick.hasCustomName()) && tag.containsKey("Lock")) {
+				if ((player.isCreative() || pick.hasCustomName()) && tag.contains("Lock")) {
 					if (container.checkUnlocked(player) || player.isCreative()) {
 						String lockName = tag.getString("Lock");
 						tag.remove("Lock");

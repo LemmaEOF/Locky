@@ -7,7 +7,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.2.3-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.2.6-SNAPSHOT"
 	}
 }
 
@@ -37,12 +37,12 @@ repositories {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.14.3"
-	mappings "net.fabricmc:yarn:1.14.3+build.1"
-	modCompile "net.fabricmc:fabric-loader:0.4.8+build.155"
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.187"
+	minecraft "com.mojang:minecraft:1.15-pre3"
+	mappings "net.fabricmc:yarn:1.15-pre3+build.6:v2"
+	modCompile "net.fabricmc:fabric-loader:0.7.2+build.174"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.18+build.271-1.15"
 
-	modCompile "metatips:metatips:1.1.4+1.14"
+	modCompile "metatips:metatips:1.1.7+1.14.4"
 }
 
 processResources {
